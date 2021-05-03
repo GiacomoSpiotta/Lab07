@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import it.polito.tdp.poweroutages.model.Model;
 import it.polito.tdp.poweroutages.model.Nerc;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -54,5 +56,12 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	Nerc[] NERC = new Nerc[model.getNercList().size()];
+    	int i = 0;
+    	for(Nerc ni : model.getNercList()) {
+    		NERC[i++] = ni;
+    	}
+    	ObservableList<Nerc> nerc = FXCollections.observableArrayList(NERC);
+    	cmbNerc.setItems(nerc);
     }
 }
