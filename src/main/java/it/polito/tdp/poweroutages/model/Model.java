@@ -22,9 +22,9 @@ public class Model {
 		return podao.getNercList();
 	}
 	
-	public List<PowerOutages> cercaSequenza(int idNerc, int maxYears, int maxHours){
+	public List<PowerOutages> cercaSequenza(Nerc nerc, int maxYears, int maxHours){
 		
-		outages = podao.getNercOutages(idNerc);
+		outages = podao.getNercOutages(nerc);
 		List<PowerOutages> parziale = new ArrayList<>();
 		cercaSoluzione(parziale , maxYears, maxHours);
 		
@@ -53,12 +53,7 @@ public class Model {
 		
 		boolean result = false;
 		
-		int sommaOreDisservizio = 0;
-		
-		for(PowerOutages poi : parziale) {
-			sommaOreDisservizio += poi.getHoursOfOutage();
-		}
-		sommaOreDisservizio += po.getHoursOfOutage();
+		int sommaOreDisservizio = po.getHoursOfOutage() + this.hoursOutage(parziale);
 		
 		if(sommaOreDisservizio <= maxHours && (parziale.size() == 0 || parziale.get(0).getYear() - po.getYear() <= maxYears)) {
 			result = true;
@@ -67,12 +62,20 @@ public class Model {
 		return result;
 	}
 
-	private int sumPeople(List<PowerOutages> parziale) {
+	public int sumPeople(List<PowerOutages> parziale) {
 		int somma = 0;
 		for(PowerOutages po : parziale) {
 			somma += po.getPeopleAffected();
 		}
 		return somma;
+	}
+	
+	public int hoursOutage (List<PowerOutages> parziale) {
+		int hoursOutage = 0;
+		for(PowerOutages poi : parziale) {
+			hoursOutage += poi.getHoursOfOutage();
+		}
+		return hoursOutage;
 	}
 
 }

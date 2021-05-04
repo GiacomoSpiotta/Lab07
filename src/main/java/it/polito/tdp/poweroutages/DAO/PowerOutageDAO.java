@@ -35,7 +35,7 @@ public class PowerOutageDAO {
 		}
 	}
 
-	public List<PowerOutages> getNercOutages(int idNerc) {
+	public List<PowerOutages> getNercOutages(Nerc nerc) {
 		
 		String sql = "SELECT * "
 				+ "FROM poweroutages "
@@ -45,7 +45,7 @@ public class PowerOutageDAO {
 		try{
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-			st.setInt(1, idNerc);
+			st.setInt(1, nerc.getId());
 			ResultSet res = st.executeQuery();
 			
 			while(res.next()) {

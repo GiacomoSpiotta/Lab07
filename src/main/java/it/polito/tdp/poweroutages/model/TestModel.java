@@ -5,7 +5,7 @@ public class TestModel {
 	public static void main(String[] args) {
 		
 		Model model = new Model();
-		System.out.println(model.cercaSequenza(8, 4, 10));
+		System.out.println(model.cercaSequenza(new Nerc(3, null), 4, 200));
 
 	}
 

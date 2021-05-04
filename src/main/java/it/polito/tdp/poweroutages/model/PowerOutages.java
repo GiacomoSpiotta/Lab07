@@ -50,7 +50,11 @@ public class PowerOutages {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(id);
+		builder.append(String.format("\n%-5d", this.year));
+		builder.append(String.format("%-18s", dateBegan.toString()));
+		builder.append(String.format("%-18s", dateFinish.toString()));
+		builder.append(String.format("%-4d", this.hoursOfOutage));
+		builder.append(String.format("%-6d", this.peopleAffected));
 		return builder.toString();
 	}
 
